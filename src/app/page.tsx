@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -17,6 +17,8 @@ import {
   Layers,
   CheckCircle,
   Info,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 /*
@@ -54,10 +56,18 @@ const EvidenceItem = ({
 );
 
 export default function App() {
-  const [branded, setBranded] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   return (
-    <div className={`min-h-screen ${branded ? "bg-slate-50" : "bg-white"}`}>
+    <div className="min-h-screen">
       <div className="mx-auto max-w-5xl px-4 py-8">
         <header className="mb-6 flex items-start justify-between">
           <div>
@@ -68,8 +78,18 @@ export default function App() {
               Caseware Cloud • Interactive, achievable, technology-based plan
             </p>
           </div>
-          <Button variant="outline" onClick={() => setBranded(!branded)}>
-            {branded ? "Switch to Neutral" : "Apply Caseware Style"}
+          <Button variant="outline" onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? (
+              <>
+                <Sun className="h-4 w-4 mr-2" />
+                White Mode
+              </>
+            ) : (
+              <>
+                <Moon className="h-4 w-4 mr-2" />
+                Dark Mode
+              </>
+            )}
           </Button>
         </header>
 
